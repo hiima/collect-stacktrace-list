@@ -7,5 +7,14 @@
   "latencyHigh": 4000,
   "latencyMedium": 2000,
   "latencyLow": 1000,
-  "latencyLowest": 500
+  "latencyLowest": 500,
+  "hostNameReplacers": [{
+      "hostName": "aaa.bbb.ccc",
+      "replacer": "abc"
+    },
+    {
+      "hostName": "xxx.yyy.zzz",
+      "replacer": "xyz"
+    }
+  ]
 }

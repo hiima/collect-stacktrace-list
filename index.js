@@ -2,7 +2,12 @@ const moment = require('moment-timezone');
 const { google } = require('googleapis');
 
 const config = require('./config.json');
-const { replaceUrlParams, distinctByApiName, printWithColor } = require('./helper');
+const {
+  replaceUrlParams,
+  replaceHostName,
+  distinctByApiName,
+  printWithColor
+} = require('./helper');
 
 async function main() {
   // .env.LABELで"ホストA名 ホストB名"のように指定すると、複数のホストを監視対象にできる
@@ -11,10 +16,7 @@ async function main() {
     return result;
   });
 
-  // 監視対象のホストごとに取得したスタックトレースを一度スプレッドして一次元配列にする
-  // [[ ホストAのスタックトレース ], [ ホストBのスタックトレース ]] => [ ホストAのスタックトレース, ホストBのスタックトレース ]
-  const allTraces = [].concat(...(await Promise.all(tasks)));
-  distinctByApiName(allTraces).forEach(trace => printWithColor(trace));
+  await Promise.all(tasks);
 }
 main();
 
@@ -33,7 +35,8 @@ async function task(label) {
   };
 
   const traces = await fetchTraces(request);
-  return traces;
+
+  distinctByApiName(traces).forEach(x => printWithColor(x));
 }
 
 async function authorize() {
@@ -63,7 +66,7 @@ async function fetchTraces(request) {
       name: replaceUrlParams(traceSpan.name),
       traceId: trace.traceId, // Trace URLの発行用
       startTime: traceSpan.startTime, // debug用
-      host: traceSpan.labels['/http/host']
+      host: replaceHostName(traceSpan.labels['/http/host'])
     }))
   );
   // 二次元配列を一次元配列にする
