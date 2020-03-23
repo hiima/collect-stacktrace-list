@@ -23,11 +23,11 @@ module.exports.distinctByApiName = arr => {
 };
 
 module.exports.printWithColor = trace => {
-  const highest = { latency: config.latency_highest || 8000, color: '\x1b[31m' };
-  const high = { latency: config.latency_high || 4000, color: '\x1b[35m' };
-  const medium = { latency: config.latency_medium || 2000, color: '\x1b[33m' };
-  const low = { latency: config.latency_low || 1000, color: '\x1b[32m' };
-  const lowest = { latency: config.latency_lowest || 500, color: '\x1b[36m' };
+  const highest = { latency: config.latencyHighest || 8000, color: '\x1b[31m' };
+  const high = { latency: config.latencyHigh || 4000, color: '\x1b[35m' };
+  const medium = { latency: config.latencyMedium || 2000, color: '\x1b[33m' };
+  const low = { latency: config.latencyLow || 1000, color: '\x1b[32m' };
+  const lowest = { latency: config.latencyLowest || 500, color: '\x1b[36m' };
   const resetColor = '\x1b[0m';
 
   const color = (() => {

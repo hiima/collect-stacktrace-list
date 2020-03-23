@@ -32,16 +32,16 @@ node index.js
 # .env の書き方
 
 ```
-PROJECT_ID=xxxx-abcd1234
-DURATION_DAYS=1
-LATENCY_MS=2000
+projectId=xxxx-abcd1234
+durationDays=1
+latencyMs=2000
 LABEL="/http/host:aaa.bbb.ccc /http/host:xxx.yyy.zzz"
 
-LATENCY_HIGHEST=8000
-LATENCY_HIGH=4000
-LATENCY_MEDIUM=2000
-LATENCY_LOW=1000
-LATENCY_LOWEST=500
+latencyHighest=8000
+latencyHigh=4000
+latencyMedium=2000
+latencyLow=1000
+latencyLowEST=500
 ```
 
 # 取得先 API の仕様

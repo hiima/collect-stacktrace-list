@@ -20,13 +20,13 @@ main();
 
 async function task(label) {
   const startTime = moment()
-    .subtract(config.duration_days, 'day')
+    .subtract(config.durationDays, 'day')
     .tz('UTC')
     .format();
 
   const request = {
-    projectId: config.project_id,
-    filter: `${label} latency:${config.latency_ms}ms`,
+    projectId: config.projectId,
+    filter: `${label} latency:${config.latencyMs}ms`,
     startTime,
     view: 'ROOTSPAN',
     auth: await authorize()
@@ -69,5 +69,5 @@ async function fetchTraces(request) {
   // 二次元配列を一次元配列にする
   const result = [].concat(...temp);
 
-  return result.filter(x => x.latency >= config.latency_ms).filter(x => x.method !== undefined);
+  return result.filter(x => x.latency >= config.latencyMs).filter(x => x.method !== undefined);
 }
