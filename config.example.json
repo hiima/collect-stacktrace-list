@@ -1,11 +1,20 @@
 {
-  "project_id": "xxxx-abcd1234",
-  "duration_days": 1,
-  "latency_ms": 2000,
+  "projectId": "xxxx-abcd1234",
+  "durationDays": 1,
+  "latencyMs": 2000,
   "labels": ["/http/host:aaa.bbb.ccc", "/http/host:xxx.yyy.zzz"],
-  "latency_highest": 8000,
-  "latency_high": 4000,
-  "latency_medium": 2000,
-  "latency_low": 1000,
-  "latency_lowest": 500
+  "latencyHighest": 8000,
+  "latencyHigh": 4000,
+  "latencyMedium": 2000,
+  "latencyLow": 1000,
+  "latencyLowest": 500,
+  "hostNameReplacers": [{
+      "hostName": "aaa.bbb.ccc",
+      "replacer": "abc"
+    },
+    {
+      "hostName": "xxx.yyy.zzz",
+      "replacer": "xyz"
+    }
+  ]
 }
