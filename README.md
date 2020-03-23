@@ -25,7 +25,7 @@ git clone https://github.com/hiima/collect-stacktrace-list.git
 cd collect-stacktrace-list
 npm install
 cp config.example.json config.json
-# .env に検索条件を書き込む
+# config.json に検索条件を書き込む
 node index.js
 ```
 
