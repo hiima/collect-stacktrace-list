@@ -1,4 +1,4 @@
-require('dotenv').config();
+const config = require('./config.json');
 
 module.exports.replaceUrlParams = url => {
   // '/UUID' と '/数列' を '/*' に置換する
@@ -23,11 +23,11 @@ module.exports.distinctByApiName = arr => {
 };
 
 module.exports.printWithColor = trace => {
-  const highest = { latency: process.env.LATENCY_HIGHEST || 8000, color: '\x1b[31m' };
-  const high = { latency: process.env.LATENCY_HIGH || 4000, color: '\x1b[35m' };
-  const medium = { latency: process.env.LATENCY_MEDIUM || 2000, color: '\x1b[33m' };
-  const low = { latency: process.env.LATENCY_LOW || 1000, color: '\x1b[32m' };
-  const lowest = { latency: process.env.LATENCY_LOWEST || 500, color: '\x1b[36m' };
+  const highest = { latency: config.latency_highest || 8000, color: '\x1b[31m' };
+  const high = { latency: config.latency_high || 4000, color: '\x1b[35m' };
+  const medium = { latency: config.latency_medium || 2000, color: '\x1b[33m' };
+  const low = { latency: config.latency_low || 1000, color: '\x1b[32m' };
+  const lowest = { latency: config.latency_lowest || 500, color: '\x1b[36m' };
   const resetColor = '\x1b[0m';
 
   const color = (() => {

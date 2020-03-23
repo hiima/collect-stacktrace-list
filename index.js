@@ -1,13 +1,12 @@
-require('dotenv').config();
-
 const moment = require('moment-timezone');
 const { google } = require('googleapis');
 
+const config = require('./config.json');
 const { replaceUrlParams, distinctByApiName, printWithColor } = require('./helper');
 
 async function main() {
   // .env.LABELで"ホストA名 ホストB名"のように指定すると、複数のホストを監視対象にできる
-  const tasks = process.env.LABEL.split(' ').map(async host => {
+  const tasks = config.labels.map(async host => {
     const result = await task(host);
     return result;
   });
@@ -21,13 +20,13 @@ main();
 
 async function task(label) {
   const startTime = moment()
-    .subtract(process.env.DURATION_DAYS, 'day')
+    .subtract(config.duration_days, 'day')
     .tz('UTC')
     .format();
 
   const request = {
-    projectId: process.env.PROJECT_ID,
-    filter: `${label} latency:${process.env.LATENCY_MS}ms`,
+    projectId: config.project_id,
+    filter: `${label} latency:${config.latency_ms}ms`,
     startTime,
     view: 'ROOTSPAN',
     auth: await authorize()
@@ -70,7 +69,5 @@ async function fetchTraces(request) {
   // 二次元配列を一次元配列にする
   const result = [].concat(...temp);
 
-  return result
-    .filter(x => x.latency >= process.env.LATENCY_MS)
-    .filter(x => x.method !== undefined);
+  return result.filter(x => x.latency >= config.latency_ms).filter(x => x.method !== undefined);
 }

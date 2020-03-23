@@ -1,0 +1,11 @@
+{
+  "project_id": "xxxx-abcd1234",
+  "duration_days": 1,
+  "latency_ms": 2000,
+  "labels": ["/http/host:aaa.bbb.ccc", "/http/host:xxx.yyy.zzz"],
+  "latency_highest": 8000,
+  "latency_high": 4000,
+  "latency_medium": 2000,
+  "latency_low": 1000,
+  "latency_lowest": 500
+}
