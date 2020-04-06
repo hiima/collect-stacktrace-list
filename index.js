@@ -2,42 +2,28 @@ const moment = require('moment-timezone');
 const { google } = require('googleapis');
 
 const config = require('./config.json');
-const {
-  replaceUrlParams,
-  replaceHostName,
-  distinctByApiName,
-  printWithColor
-} = require('./helper');
+const { replaceUrlParams, distinctByApiName, printWithColor } = require('./helper');
 
 async function main() {
-  // .env.LABELで"ホストA名 ホストB名"のように指定すると、複数のホストを監視対象にできる
-  const tasks = config.labels.map(async host => {
-    const result = await task(host);
-    return result;
-  });
-
-  await Promise.all(tasks);
-}
-main();
-
-async function task(label) {
+  const filter = `${config.host} latency:${config.latencyMs}ms`;
   const startTime = moment()
     .subtract(config.durationDays, 'day')
     .tz('UTC')
     .format();
-
+  const auth = await authorize();
   const request = {
     projectId: config.projectId,
-    filter: `${label} latency:${config.latencyMs}ms`,
+    filter,
     startTime,
     view: 'ROOTSPAN',
-    auth: await authorize()
+    auth
   };
 
   const traces = await fetchTraces(request);
 
   distinctByApiName(traces).forEach(x => printWithColor(x));
 }
+main();
 
 async function authorize() {
   const auth = new google.auth.GoogleAuth({
@@ -65,8 +51,7 @@ async function fetchTraces(request) {
       method: traceSpan.labels['/http/method'],
       name: replaceUrlParams(traceSpan.name),
       traceId: trace.traceId, // Trace URLの発行用
-      startTime: traceSpan.startTime, // debug用
-      host: replaceHostName(traceSpan.labels['/http/host'])
+      startTime: traceSpan.startTime // debug用
     }))
   );
   // 二次元配列を一次元配列にする

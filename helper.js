@@ -8,16 +8,6 @@ module.exports.replaceUrlParams = url => {
   return url.replace(uuidRegex, replacer).replace(numberRegex, replacer);
 };
 
-module.exports.replaceHostName = hostName => {
-  const { hostNameReplacers } = config;
-  const index = hostNameReplacers.findIndex(x => x.hostName === hostName);
-
-  if (index === -1) return '';
-
-  const replaced = hostNameReplacers[index].replacer;
-  return replaced;
-};
-
 module.exports.distinctByApiName = arr => {
   // レイテンシで降順ソート
   const sorted = arr.sort((a, b) => b.latency - a.latency);
@@ -57,9 +47,7 @@ module.exports.printWithColor = trace => {
     }
   })();
 
-  console.log(
-    `[${trace.host}]${color}[${trace.latency}]${resetColor} ${trace.method} ${trace.name}`
-  );
+  console.log(`${color}[${trace.latency}]${resetColor} ${trace.method} ${trace.name}`);
   console.log(`=> https://console.cloud.google.com/traces/traces?tid=${trace.traceId}`);
   console.log('');
 };
