@@ -7,13 +7,13 @@
 
 ```sh
 # トレースリスト取得例
-[abc][6482] GET /hoge/v1/all_users
+[6482] GET /hoge/v1/all_users
 => https://console.cloud.google.com/traces/traces?tid=11111111111111111111111111111111
 
-[abc][4700] GET /fuga/v1/posts/*
+[4700] GET /fuga/v1/posts/*
 => https://console.cloud.google.com/traces/traces?tid=22222222222222222222222222222222
 
-[xyz][3303] GET /fuga/v1/all_users
+[3303] GET /fuga/v1/all_users
 => https://console.cloud.google.com/traces/traces?tid=33333333333333333333333333333333
 ```
 
@@ -36,22 +36,12 @@ node index.js
   "projectId": "xxxx-abcd1234",
   "durationDays": 1,
   "latencyMs": 2000,
-  "labels": ["/http/host:aaa.bbb.ccc", "/http/host:xxx.yyy.zzz"],
+  "host": "/http/host:prod.abc.com",
   "latencyHighest": 8000,
   "latencyHigh": 4000,
   "latencyMedium": 2000,
   "latencyLow": 1000,
-  "latencyLowest": 500,
-  "hostNameReplacers": [
-    {
-      "hostName": "aaa.bbb.ccc",
-      "replacer": "abc"
-    },
-    {
-      "hostName": "xxx.yyy.zzz",
-      "replacer": "xyz"
-    }
-  ]
+  "latencyLowest": 500
 }
 ```
 
