@@ -13,7 +13,8 @@ module.exports.replaceUrlParams = url => {
         .replace(uuidRegex, replacer)
         .replace(numberRegex, replacer)
     )
-    .join('/');
+    .join('/')
+    .replace(/\/$/, '');
 };
 
 module.exports.distinctByApiName = arr => {

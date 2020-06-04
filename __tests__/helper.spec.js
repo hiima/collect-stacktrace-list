@@ -3,6 +3,8 @@ const { replaceUrlParams, distinctByApiName } = require('../helper');
 describe('helper', () => {
   describe('replaceUrlParams()', () => {
     it('should replace url params', () => {
+      expect(replaceUrlParams('/foo/v1/users/1134f228-6d93-4548-94b3-fd31ce33549c/'))
+        .toBe('/foo/v1/users/*');
       expect(replaceUrlParams('/foo/v1/users/1134f228-6d93-4548-94b3-fd31ce33549c'))
         .toBe('/foo/v1/users/*');
       expect(replaceUrlParams('/foo/v1/users/1134f228-6d93-4548-94b3-fd31ce33549c/posts'))
