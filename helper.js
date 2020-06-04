@@ -1,11 +1,19 @@
 const config = require('./config.json');
 
 module.exports.replaceUrlParams = url => {
-  // '/UUID' と '/数列' を '/*' に置換する
-  const uuidRegex = /\/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/g;
-  const numberRegex = /\/[+-]?\d+/g;
-  const replacer = '/*';
-  return url.replace(uuidRegex, replacer).replace(numberRegex, replacer);
+  const ewdRegex = /\d{8}_\d+_\d+_.+/g;
+  const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/g;
+  const numberRegex = /^\d+$/g;
+  const replacer = '*';
+  return url
+    .split('/')
+    .map(x =>
+      x
+        .replace(ewdRegex, replacer)
+        .replace(uuidRegex, replacer)
+        .replace(numberRegex, replacer)
+    )
+    .join('/');
 };
 
 module.exports.distinctByApiName = arr => {

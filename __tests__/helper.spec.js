@@ -19,6 +19,10 @@ describe('helper', () => {
         .toBe('/foo/v1/users/*/posts/*');
       expect(replaceUrlParams('/foo/v1/users/345/posts/678/details'))
         .toBe('/foo/v1/users/*/posts/*/details');
+      expect(replaceUrlParams('/foo/v1/bar/20200628_56_54_1D2_by_aX337t2CuFdnDeF1jkayiuXN0KfIIF_7g4h_M'))
+        .toBe('/foo/v1/bar/*');
+      expect(replaceUrlParams('/foo/v1/bar/20200628_56_54_1D2_by_aX337t2CuFdnDeF1jkayiuXN0KfIIF_7g4h_M/baz'))
+        .toBe('/foo/v1/bar/*/baz');
     });
   });
 
